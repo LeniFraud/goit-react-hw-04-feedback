@@ -8,14 +8,14 @@ export const List = styled.ul`
 `;
 
 export const Info = styled.li`
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 1.2px;
   color: #395957;
 `;
 
 export const Counter = styled.span`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: ${({ option }) => colorPicker(option)};
 `;

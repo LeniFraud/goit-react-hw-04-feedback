@@ -10,7 +10,7 @@ export const Wrapper = styled.section`
 `;
 
 export const Title = styled.h2`
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   font-size: 44px;
   font-weight: 700;
   letter-spacing: 1.2px;
