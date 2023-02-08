@@ -16,7 +16,7 @@ export const Button = styled.button`
   font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
-  background-color: ${({ name }) => colorPicker(name)};
+  background-color: ${({ value }) => colorPicker(value)};
   border-radius: 5px;
   border: none;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),

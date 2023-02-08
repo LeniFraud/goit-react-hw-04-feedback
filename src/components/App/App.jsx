@@ -9,12 +9,12 @@ export class App extends React.Component {
     bad: 0,
   };
 
-  onLeaveFeedback = e => {
+  onLeaveFeedback = option => {
     this.setState(prevState => ({
-      [e.target.name]: prevState[e.target.name] + 1,
+      [option]: prevState[option] + 1,
     }));
   };
-
+  option;
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
@@ -27,6 +27,7 @@ export class App extends React.Component {
 
   render() {
     const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
 
     return (
       <Wrapper>
@@ -37,12 +38,12 @@ export class App extends React.Component {
           ></FeedbackOptions>
         </Section>
         <Section title="Statistics">
-          {this.countTotalFeedback() > 0 ? (
+          {total > 0 ? (
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
