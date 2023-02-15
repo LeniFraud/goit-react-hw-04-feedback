@@ -1,56 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Section, FeedbackOptions, Statistics, Notification } from 'components';
 import { Wrapper } from './App.styled';
 
-export class App extends React.Component {
-  state = {
+export const App = () => {
+  const [response, setResponse] = useState({
     good: 0,
     neutral: 0,
     bad: 0,
-  };
+  });
+  const { good, neutral, bad } = response;
 
-  onLeaveFeedback = option => {
-    this.setState(prevState => ({
-      [option]: prevState[option] + 1,
-    }));
-  };
-  option;
-  countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
-  };
+  const onLeaveFeedback = option =>
+    setResponse({ ...response, [option]: response[option] + 1 });
 
-  countPositiveFeedbackPercentage = () => {
-    const { good } = this.state;
-    return Math.round((good / this.countTotalFeedback()) * 100) || 0;
-  };
+  const countTotalFeedback = () => good + neutral + bad;
 
-  render() {
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback();
+  const countPositiveFeedbackPercentage = () =>
+    Math.round((good / countTotalFeedback()) * 100) || 0;
 
-    return (
-      <Wrapper>
-        <Section title="Please leave your feedback">
-          <FeedbackOptions
-            options={Object.keys(this.state)}
-            onLeaveFeedback={this.onLeaveFeedback}
-          ></FeedbackOptions>
-        </Section>
-        <Section title="Statistics">
-          {total > 0 ? (
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={total}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
-          ) : (
-            <Notification message="There is no feedback yet..." />
-          )}
-        </Section>
-      </Wrapper>
-    );
-  }
-}
+  return (
+    <Wrapper>
+      <Section title="Please leave your feedback">
+        <FeedbackOptions
+          options={Object.keys(response)}
+          onLeaveFeedback={onLeaveFeedback}
+        ></FeedbackOptions>
+      </Section>
+      <Section title="Statistics">
+        {countTotalFeedback() > 0 ? (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
+          />
+        ) : (
+          <Notification message="There is no feedback yet..." />
+        )}
+      </Section>
+    </Wrapper>
+  );
+};
