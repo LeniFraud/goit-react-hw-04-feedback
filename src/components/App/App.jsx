@@ -19,6 +19,8 @@ export const App = () => {
   const countPositiveFeedbackPercentage = () =>
     Math.round((good / countTotalFeedback()) * 100) || 0;
 
+  const total = countTotalFeedback();
+
   return (
     <Wrapper>
       <Section title="Please leave your feedback">
@@ -28,12 +30,12 @@ export const App = () => {
         ></FeedbackOptions>
       </Section>
       <Section title="Statistics">
-        {countTotalFeedback() > 0 ? (
+        {total > 0 ? (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={countTotalFeedback()}
+            total={total}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
         ) : (
